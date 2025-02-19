@@ -8,7 +8,6 @@ import (
 )
 
 type config struct {
-	Name string `env:"NAME"`
 	Port uint16 `env:"PORT"`
 }
 
@@ -21,17 +20,8 @@ func loadConfig(getter util.ValueGetter) (*config, error) {
 	if err != nil {
 		return nil, err
 	}
-	nameStr, err := getter("NAME")
-	if err != nil {
-		return nil, err
-	}
-	name, err := pipeline.Process[string](nameStr, util.NotEmpty)
-	if err != nil {
-		return nil, err
-	}
 	return &config{
 		Port: uint16(port),
-		Name: name,
 	}, nil
 }
 
